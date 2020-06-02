@@ -4,7 +4,7 @@
 {% block content %}
     {% for car in cars %}
         <h3><a href = "{{ car.link }}">{{ car.title }}</a></h3>
-        <img src="{% static "images/cars/"|add:car.image_ref%}" alt="{{ car.title }}">
+        <img src="{% static "cars_list/cars_img/"|add:car.image_ref %}" alt="{{ car.title }}">
         <h4>{{ car.usd_price }} $</h4>
         <h4>{{ car.uah_price }} грн.</h4>
         <br>

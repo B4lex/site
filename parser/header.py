@@ -12,7 +12,7 @@ def get_image(link):
     img_link = img_tag.find('img').get('src')
     img_file = requests.get(img_link)
     img_name = img_link[img_link.rfind('/') + 1:]
-    with open(os.path.join(BASE_DIR, 'static/images/cars/') + img_name, 'wb') as image:
+    with open(os.path.join(BASE_DIR, 'cars_list/static/cars_list/cars_img/') + img_name, 'wb') as image:
         image.write(img_file.content)
     return img_name
 

@@ -30,6 +30,6 @@ class Command(BaseCommand):
             car.uah_price = int(car_raw.find('span', attrs={'data-currency': 'UAH'}).text.replace(' ', ''))
             car.description = get_description(link)
             car.image_ref = get_image(link)
-            print(car.title + ' have successfully parsed.' + car.image_ref)
+            print(car.title + ' have successfully parsed.')
             car.save()
 

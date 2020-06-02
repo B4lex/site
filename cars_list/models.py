@@ -9,4 +9,4 @@ class Car(models.Model):
     usd_price = models.IntegerField()
     uah_price = models.IntegerField()
     description = models.TextField(max_length=500, blank=True)
-    image_ref = models.CharField(max_length=20)
+    image_ref = models.TextField(null=True, editable=False)
