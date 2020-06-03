@@ -21,10 +21,18 @@ def get_image(link):
     return img_name
 
 
-# def get_description(link):
-#     html_raw = requests.get(link)
-#     html_bs = BeautifulSoup(html_raw.content, 'html.parser')
-#     return html_bs.find('div', id='full-description').text.replace('//', '')
+def get_description(link):
+    html_raw = requests.get(link)
+    html_bs = BeautifulSoup(html_raw.content, 'html.parser')
+    block_params = html_bs.find(id='description_v3')
+    if block_params is None:
+        return []
+    params = block_params.find_all('dd')
+    text = ''
+    for param in params:
+        text += param.text + '\n'
+
+    return text
 
 
 def get_pages(link):
