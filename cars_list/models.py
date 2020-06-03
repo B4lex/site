@@ -10,3 +10,5 @@ class Car(models.Model):
     uah_price = models.IntegerField()
     description = models.TextField(max_length=500, blank=True)
     image_ref = models.TextField(null=True, editable=False)
+    # bind_page = models.IntegerField()
+    # last_page = models.IntegerField()

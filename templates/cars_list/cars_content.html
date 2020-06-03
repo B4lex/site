@@ -9,4 +9,14 @@
         <h4>{{ car.uah_price }} грн.</h4>
         <br>
     {% endfor %}
+    <h2>
+    {% if cars.has_previous %}
+        <a href="/?page={{ cars.previous_page_number }}"><</a>
+    {% endif %}
+    {{ cars.number }}
+    {% if cars.has_next %}
+        <a href="/?page={{ cars.next_page_number }}">></a>
+    {% endif %}
+    {{ cars.count }}
+    </h2>
 {% endblock %}
