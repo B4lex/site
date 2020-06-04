@@ -1,9 +1,13 @@
 {% extends 'cars_list/cars_base.html' %}
 {% load static %}
 
+{% block title %}
+    {{ car.title }}
+{% endblock title %}
+
 {% block content %}
     <h3><a href = "{{ car.link }}">{{ car.title }}</a></h3>
-    <img src="{% static "cars_list/cars_img/"|add:car.image_ref %}" alt="{{ car.title }}">
+    <img src="{{car.image_ref}}" alt="{{ car.title }}">
     <h4>{{ car.usd_price }} $</h4>
     <h4>{{ car.uah_price }} грн.</h4>
     <p>{{ car.description }}</p>
