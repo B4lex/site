@@ -18,17 +18,16 @@ class Command(BaseCommand):
             cars_raw = bs_data.find_all('section', class_='ticket-item new__ticket t paid')
             for car_raw in cars_raw:
                 link = car_raw.find('a', class_='address').get('href')
-                car_info = get_car_info(link)
+                print(link)
                 defaults = {"title": car_raw.find('span', class_='blue bold').text.strip(' '),
                             "usd_price": int(
                                 car_raw.find('span', attrs={'data-currency': 'USD'}).text.replace(' ', '')),
                             "uah_price": int(
                                 car_raw.find('span', attrs={'data-currency': 'UAH'}).text.replace(' ', '')),
-                            "image_ref": car_info["image"],
-                            "description": car_info["description"]
                             }
+                defaults.update(get_car_info(link))
                 Car.objects.get_or_create(link=link,
                                           defaults=defaults)
             print(str(page_number) + ' page have successfully parsed.')
-            if page_number > 100:
+            if page_number == 100:
                 break
