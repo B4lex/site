@@ -38,7 +38,6 @@ def get_car_stats(car_bs):
         elif title_field == 'Цвет':
             stats['color'] = value_field
 
-    print(stats)
     return stats
 
 

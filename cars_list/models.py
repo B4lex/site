@@ -17,3 +17,5 @@ class Car(models.Model):
     transmission = models.TextField(null=True)
     color = models.CharField(max_length=10, null=True)
 
+    def __str__(self):
+        return self.title
