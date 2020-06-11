@@ -1,6 +1,7 @@
 from cars_list.models import Car
 from django.core.management.base import BaseCommand
 from bs4 import BeautifulSoup
+import sys
 
 import requests
 from cars_list.parser import get_last_page_number, get_car_info
@@ -26,8 +27,13 @@ class Command(BaseCommand):
                                 car_raw.find('span', attrs={'data-currency': 'UAH'}).text.replace(' ', '')),
                             }
                 defaults.update(get_car_info(link))
-                Car.objects.get_or_create(link=link,
-                                          defaults=defaults)
+                obj, created = Car.objects.get_or_create(link=link,
+                                                         defaults=defaults)
+                if not created:
+                    for item in defaults:
+                        setattr(obj, item, defaults.get(item))
+                        obj.save()
+
             print(str(page_number) + ' page have successfully parsed.')
             if page_number == 100:
                 break
