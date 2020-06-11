@@ -11,7 +11,7 @@ class Car(models.Model):
     image_ref = models.URLField()
     location = models.CharField(max_length=10, null=True)
     type = models.TextField(null=True)
-    mileage = models.DecimalField(decimal_places=10, max_digits=10, null=True)
+    mileage = models.DecimalField(decimal_places=5, max_digits=10, null=True)
     engine = models.TextField(null=True)
     gearbox = models.TextField(null=True)
     transmission = models.TextField(null=True)

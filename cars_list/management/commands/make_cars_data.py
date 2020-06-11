@@ -1,9 +1,9 @@
 from cars_list.models import Car
 from django.core.management.base import BaseCommand
-from bs4 import BeautifulSoup
-import sys
 
+from bs4 import BeautifulSoup
 import requests
+
 from cars_list.parser import get_last_page_number, get_car_info
 
 base_url = 'https://auto.ria.com/legkovie/'

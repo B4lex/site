@@ -23,13 +23,13 @@ def get_car_stats(car_bs):
         return {}
     params = block_params.find_all('dd', class_='')
     stats = {'type': params[0].text}
+    mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
+    stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
     for param in params[1:]:
         span = param.find_all('span')
         title_field = span[0].text
         value_field = span[1].text
-        if title_field == 'Пробег':
-            stats['mileage'] = Decimal(value_field[:value_field.find(' ') - 1])
-        elif title_field == 'Двигатель':
+        if title_field == 'Двигатель':
             stats['engine'] = value_field
         elif title_field == 'Коробка передач':
             stats['gearbox'] = value_field
@@ -38,6 +38,7 @@ def get_car_stats(car_bs):
         elif title_field == 'Цвет':
             stats['color'] = value_field
 
+    print(stats)
     return stats
 
 
