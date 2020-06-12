@@ -10,12 +10,12 @@
             <br>
         </div>
     {% endfor %}
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">
-            <button type="button" class="btn btn-secondary btn-sm">Previous</button>
-        </a>
-    {% endif %}
-    <span class="block-pages-list">
+    <div class="block-pages-list">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+                <button type="button" class="btn btn-secondary btn-sm">Previous</button>
+            </a>
+        {% endif %}
         {% for page in paginator.page_range %}
             {% if page == page_obj.number %}
                 <strong>{{ page }}</strong>
@@ -30,5 +30,5 @@
                 <button type="button" class="btn btn-primary btn-sm">Next</button>
             </a>
         {% endif %}
-    </span>
+    </div>
 {% endblock %}
