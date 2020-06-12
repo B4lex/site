@@ -7,14 +7,16 @@
 
 {% block content %}
     <h3><a href = "{{ car.link }}">{{ car.title }}</a></h3>
-    <img src="{{car.image_ref}}" alt="{{ car.title }}">
+    <div style="text-align: center">
+    <img class="car-photo" src="{{car.image_ref}}" alt="{{ car.title }}">
+    </div>
     <div id="price">
         <h4>{{ car.usd_price }} $</h4>
         <h4>{{ car.uah_price }} грн.</h4>
     </div>
     <h2>{{ car.location }}</h2>
     {% if car.type %}
-        <div id="car-type"><h3>{{ car.type }}</h3></div>
+        <div id="car-type"><h5>{{ car.type }}</h5></div>
     {% endif %}
     {% if car.mileage %}
         <h3>Пробег</h3> {{ car.mileage }}
@@ -29,10 +31,10 @@
         <h3>Привод</h3> {{ car.transmission }}
     {% endif %}
     {% if car.color %}
-        <h3>Цвет</h3> {{ car.color }}
+        <h3>Цвет</h3> <span id="car-color" style="background-color: #{{ car.color_val }}"></span>{{ car.color }}
     {% endif %}
     {% if car.color %}
         <h3>Описание</h3>
-        {{ car.description }}
+        {{ car.description | linebreaksbr }}
     {% endif %}
 {% endblock %}

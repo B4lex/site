@@ -2,29 +2,33 @@
 
 {% block content %}
     {% for car in cars %}
-        <h3><a href="{% url 'car_detail' pk=car.pk %}">{{ car.title }}</a></h3>
-        <img src="{{ car.image_ref }}" alt="{{ car.title }}">
-        <h4>{{ car.usd_price }} $</h4>
-        <h4>{{ car.uah_price }} грн.</h4>
-        <br>
+        <div class="container car">
+            <h3><a href="{% url 'car_detail' pk=car.pk %}">{{ car.title }}</a></h3>
+            <img src="{{ car.image_ref }}" alt="{{ car.title }}">
+            <h4>{{ car.usd_price }} $</h4>
+            <h4>{{ car.uah_price }} грн.</h4>
+            <br>
+        </div>
     {% endfor %}
     {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}">
             <button type="button" class="btn btn-secondary btn-sm">Previous</button>
         </a>
     {% endif %}
-    {% for page in paginator.page_range %}
-        {% if page == page_obj.number %}
-            <strong>{{ page }}</strong>
-        {% elif page > page_obj.number|add:'-5' and page < page_obj.number|add:'5' %}
-            <a href="?page={{ page }}">{{ page }}</a>
-        {% elif page == paginator.num_pages %}
-            <strong><a href="?page={{ page }}">{{ page }}</a></strong>
+    <span class="block-pages-list">
+        {% for page in paginator.page_range %}
+            {% if page == page_obj.number %}
+                <strong>{{ page }}</strong>
+            {% elif page > page_obj.number|add:'-5' and page < page_obj.number|add:'5' %}
+                <a href="?page={{ page }}">{{ page }}</a>
+            {% elif page == paginator.num_pages %}
+                <strong><a href="?page={{ page }}">{{ page }}</a></strong>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+                <button type="button" class="btn btn-primary btn-sm">Next</button>
+            </a>
         {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">
-            <button type="button" class="btn btn-primary btn-sm">Next</button>
-        </a>
-    {% endif %}
+    </span>
 {% endblock %}

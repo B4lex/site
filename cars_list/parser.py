@@ -3,6 +3,31 @@ from bs4 import BeautifulSoup
 from decimal import Decimal
 
 
+def get_car_info(link):
+    html_raw = requests.get(link)
+    html_bs = BeautifulSoup(html_raw.content, 'html.parser')
+    stats = get_car_stats(html_bs)
+    image = get_image(html_bs)
+    location = get_location(html_bs)
+    description = get_description(html_bs)
+
+    info_dict = {'image_ref': image,
+                 'location': location,
+                 'description': description,
+                 }
+    info_dict.update(stats)
+
+    return info_dict
+
+
+def get_color(param):
+    tag = param.find_all('span')[1]
+    name = tag.text
+    style = tag.find('span').get('style')
+    color_val = style[style.find('#') + 1:style.find(';')]
+    return name, color_val
+
+
 def get_image(car_bs):
     img_tag = car_bs.find('div', class_='photo-620x465')
     if img_tag is None:
@@ -36,7 +61,9 @@ def get_car_stats(car_bs):
         elif title_field == 'Привод':
             stats['transmission'] = value_field
         elif title_field == 'Цвет':
-            stats['color'] = value_field
+            stats['color'],\
+                stats['color_val'] = get_color(param)
+            print(stats['color_val'])
 
     return stats
 
@@ -49,23 +76,6 @@ def get_location(car_bs):
     if not seller:
         return None
     return seller.find('div', class_='item_inner').text
-
-
-def get_car_info(link):
-    html_raw = requests.get(link)
-    html_bs = BeautifulSoup(html_raw.content, 'html.parser')
-    stats = get_car_stats(html_bs)
-    image = get_image(html_bs)
-    location = get_location(html_bs)
-    description = get_description(html_bs)
-
-    info_dict = {'image_ref': image,
-                 'location': location,
-                 'description': description,
-                 }
-    info_dict.update(stats)
-
-    return info_dict
 
 
 def get_description(car_bs):
