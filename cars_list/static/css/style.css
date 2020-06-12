@@ -1,0 +1,45 @@
+#car-type {
+    color: #3256bb;
+}
+
+#price {
+    text-align: center;
+}
+
+strong {
+    color: indianred;
+    font-size: 20px;
+}
+
+.block-pages-list {
+    margin: 5px auto;
+    width: 33%;
+    text-align: center;
+}
+
+#car-color {
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.car {
+    margin: 20px auto;
+    max-width: 33%;
+}
+
+h3 {
+    color: #bb5b63;
+    margin-left: 20px;
+}
+
+.car-photo {
+    margin: 10px auto;
+    display: block;
+}
+
+p {
+    margin-left: 10px;
+}
