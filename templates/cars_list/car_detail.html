@@ -32,7 +32,7 @@
         {% if car.color %}
             <h3>Цвет</h3> <span id="car-color" style="background-color: #{{ car.color_val }}"></span>{{ car.color }}
         {% endif %}
-        {% if car.color %}
+        {% if car.description %}
             <h3>Описание</h3>
             {{ car.description | linebreaksbr }}
         {% endif %}

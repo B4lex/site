@@ -10,7 +10,6 @@ def get_car_info(link):
     image = get_image(html_bs)
     location = get_location(html_bs)
     description = get_description(html_bs)
-
     info_dict = {'image_ref': image,
                  'location': location,
                  'description': description,
@@ -47,24 +46,23 @@ def get_car_stats(car_bs):
     if block_params is None:
         return {}
     params = block_params.find_all('dd', class_='')
-    stats = {'type': params[0].text}
-    mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
-    stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
-    for param in params[1:]:
-        span = param.find_all('span')
-        title_field = span[0].text
-        value_field = span[1].text
-        if title_field == 'Двигатель':
-            stats['engine'] = value_field
-        elif title_field == 'Коробка передач':
-            stats['gearbox'] = value_field
-        elif title_field == 'Привод':
-            stats['transmission'] = value_field
-        elif title_field == 'Цвет':
-            stats['color'],\
+    if params:
+        stats = {'type': params[0].text}
+        mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
+        stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
+        for param in params[1:]:
+            span = param.find_all('span')
+            title_field = span[0].text
+            value_field = span[1].text
+            if title_field == 'Двигатель':
+                stats['engine'] = value_field
+            elif title_field == 'Коробка передач':
+                stats['gearbox'] = value_field
+            elif title_field == 'Привод':
+                stats['transmission'] = value_field
+            elif title_field == 'Цвет':
+                stats['color'], \
                 stats['color_val'] = get_color(param)
-            print(stats['color_val'])
-
     return stats
 
 
@@ -83,7 +81,12 @@ def get_description(car_bs):
     if description:
         return description.text
     else:
-        return None
+        try:
+            block = car_bs.find('h4', string='Комментарий автосалона').parent
+            description = block.find('div')
+        except AttributeError:
+            return None
+        return description.string
 
 
 def get_last_page_number(link):
