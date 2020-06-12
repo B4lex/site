@@ -8,6 +8,11 @@
         <h4>{{ car.uah_price }} грн.</h4>
         <br>
     {% endfor %}
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">
+            <button type="button" class="btn btn-secondary btn-sm">Previous</button>
+        </a>
+    {% endif %}
     {% for page in paginator.page_range %}
         {% if page == page_obj.number %}
             <strong>{{ page }}</strong>
@@ -17,4 +22,9 @@
             <strong><a href="?page={{ page }}">{{ page }}</a></strong>
         {% endif %}
     {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">
+            <button type="button" class="btn btn-primary btn-sm">Next</button>
+        </a>
+    {% endif %}
 {% endblock %}
