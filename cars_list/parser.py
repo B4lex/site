@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from decimal import Decimal
 
+import re
+
 
 def get_car_info(link):
     html_raw = requests.get(link)
@@ -15,7 +17,6 @@ def get_car_info(link):
                  'description': description,
                  }
     info_dict.update(stats)
-
     return info_dict
 
 
@@ -46,23 +47,24 @@ def get_car_stats(car_bs):
     if block_params is None:
         return {}
     params = block_params.find_all('dd', class_='')
-    if params:
-        stats = {'type': params[0].text}
-        mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
+    stats = {'type': params[0].text}
+    mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
+    if re.findall(r'\d', mileage):
         stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
-        for param in params[1:]:
-            span = param.find_all('span')
-            title_field = span[0].text
-            value_field = span[1].text
-            if title_field == 'Двигатель':
-                stats['engine'] = value_field
-            elif title_field == 'Коробка передач':
-                stats['gearbox'] = value_field
-            elif title_field == 'Привод':
-                stats['transmission'] = value_field
-            elif title_field == 'Цвет':
-                stats['color'], \
+    for param in params[1:]:
+        span = param.find_all('span')
+        title_field = span[0].text
+        value_field = span[1].text
+        if title_field == 'Двигатель':
+            stats['engine'] = value_field
+        elif title_field == 'Коробка передач':
+            stats['gearbox'] = value_field
+        elif title_field == 'Привод':
+            stats['transmission'] = value_field
+        elif title_field == 'Цвет':
+            stats['color'], \
                 stats['color_val'] = get_color(param)
+
     return stats
 
 
