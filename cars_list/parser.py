@@ -49,8 +49,9 @@ def get_car_stats(car_bs):
     params = block_params.find_all('dd', class_='')
     stats = {'type': params[0].text}
     mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
-    if re.findall(r'\d', mileage):
-        stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
+    mileage_d = re.findall(r'\d+', mileage)
+    if mileage_d:
+        stats['mileage'] = Decimal(mileage_d[0])
     for param in params[1:]:
         span = param.find_all('span')
         title_field = span[0].text
