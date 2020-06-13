@@ -20,10 +20,10 @@ def get_car_info(link):
 
 
 def get_color(param):
-    tag = param.find_all('span')[1]
-    name = tag.text
-    style = tag.find('span').get('style')
-    color_val = style[style.find('#') + 1:style.find(';')]
+    name = param.text
+    print(param)
+    style = param.find('span').get('style')
+    color_val = style[style.find('#'):style.find(';')]
     return name, color_val
 
 
@@ -45,24 +45,26 @@ def get_car_stats(car_bs):
     block_params = car_bs.find(id='description_v3')
     if block_params is None:
         return {}
-    params = block_params.find_all('dd', class_='')
-    if params:
-        stats = {'type': params[0].text}
-        mileage = block_params.find('dd', class_='mhide').find_all('span')[1].text
-        stats['mileage'] = Decimal(mileage[:mileage.find(' ')])
-        for param in params[1:]:
-            span = param.find_all('span')
-            title_field = span[0].text
-            value_field = span[1].text
-            if title_field == 'Двигатель':
-                stats['engine'] = value_field
-            elif title_field == 'Коробка передач':
-                stats['gearbox'] = value_field
-            elif title_field == 'Привод':
-                stats['transmission'] = value_field
-            elif title_field == 'Цвет':
-                stats['color'], \
-                stats['color_val'] = get_color(param)
+    stats = {'type': block_params.find('dd').text}
+    mileage = block_params.find(string='Пробег')
+    stats_iter = {
+        'mileage': block_params.find(string='Пробег'),
+        'engine': block_params.find(string='Двигатель'),
+        'gearbox': block_params.find(string='Коробка передач'),
+        'transmission': block_params.find(string='Привод')
+    }
+    for item in stats_iter:
+        value = stats_iter[item]
+        if value:
+            stats_iter[item] = value.parent.next_sibling.next_sibling.string
+        print(stats_iter[item])
+    stats['mileage'] = Decimal(stats_iter['mileage']
+                               [:stats_iter['mileage'].find(' ')])
+    color_p = block_params.find(string='Цвет')
+    print(color_p)
+    if color_p:
+        stats['color'], stats['color_val'] = get_color(color_p.parent)
+    print(stats)
     return stats
 
 

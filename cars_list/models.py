@@ -8,7 +8,7 @@ class Car(models.Model):
     usd_price = models.IntegerField()
     uah_price = models.IntegerField()
     description = models.TextField(max_length=500, blank=True, null=True)
-    image_ref = models.URLField()
+    image_ref = models.URLField(null=True)
     location = models.CharField(max_length=10, null=True)
     type = models.TextField(null=True)
     mileage = models.DecimalField(decimal_places=5, max_digits=10, null=True)
@@ -17,6 +17,11 @@ class Car(models.Model):
     transmission = models.TextField(null=True)
     color = models.CharField(max_length=10, null=True)
     color_val = models.CharField(max_length=10, null=True)
+
+    def update(self, source):
+        for item in source:
+            setattr(self, item, source.get(item))
+        self.save()
 
     def __str__(self):
         return self.title

@@ -30,9 +30,7 @@ class Command(BaseCommand):
                 obj, created = Car.objects.get_or_create(link=link,
                                                          defaults=defaults)
                 if not created:
-                    for item in defaults:
-                        setattr(obj, item, defaults.get(item))
-                        obj.save()
+                    obj.update(defaults)
 
             print(str(page_number) + ' page have successfully parsed.')
             if page_number == 100:

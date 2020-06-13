@@ -30,7 +30,7 @@
             <h3>Привод</h3> {{ car.transmission }}
         {% endif %}
         {% if car.color %}
-            <h3>Цвет</h3> <span id="car-color" style="background-color: #{{ car.color_val }}"></span>{{ car.color }}
+            <h3>Цвет</h3> <span id="car-color" style="background-color: {{ car.color_val }}"></span>{{ car.color }}
         {% endif %}
         {% if car.description %}
             <h3>Описание</h3>
