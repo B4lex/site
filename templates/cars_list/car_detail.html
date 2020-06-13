@@ -6,33 +6,35 @@
 {% endblock title %}
 
 {% block content %}
-    <h3><a href = "{{ car.link }}">{{ car.title }}</a></h3>
-    <img src="{{car.image_ref}}" alt="{{ car.title }}">
-    <div id="price">
-        <h4>{{ car.usd_price }} $</h4>
-        <h4>{{ car.uah_price }} грн.</h4>
+    <div class="container">
+        <h3><a href = "{{ car.link }}">{{ car.title }}</a></h3>
+        <img class="car-photo" src="{{car.image_ref}}" alt="{{ car.title }}">
+        <div id="price">
+            <h4>{{ car.usd_price }} $</h4>
+            <h4>{{ car.uah_price }} грн.</h4>
+        </div>
+        <h2>{{ car.location }}</h2>
+        {% if car.type %}
+            <div id="car-type"><h5>{{ car.type }}</h5></div>
+        {% endif %}
+        {% if car.mileage %}
+            <h3>Пробег</h3> {{ car.mileage }}
+        {% endif %}
+        {% if car.engine %}
+            <h3>Двигатель</h3> {{ car.engine }}
+        {% endif %}
+        {% if car.gearbox %}
+            <h3>Коробка передач</h3> {{ car.gearbox }}
+        {% endif %}
+        {% if car.transmission %}
+            <h3>Привод</h3> {{ car.transmission }}
+        {% endif %}
+        {% if car.color %}
+            <h3>Цвет</h3> <span id="car-color" style="background-color: #{{ car.color_val }}"></span>{{ car.color }}
+        {% endif %}
+        {% if car.description %}
+            <h3>Описание</h3>
+            {{ car.description | linebreaksbr }}
+        {% endif %}
     </div>
-    <h2>{{ car.location }}</h2>
-    {% if car.type %}
-        <div id="car-type"><h3>{{ car.type }}</h3></div>
-    {% endif %}
-    {% if car.mileage %}
-        <h3>Пробег</h3> {{ car.mileage }}
-    {% endif %}
-    {% if car.engine %}
-        <h3>Двигатель</h3> {{ car.engine }}
-    {% endif %}
-    {% if car.gearbox %}
-        <h3>Коробка передач</h3> {{ car.gearbox }}
-    {% endif %}
-    {% if car.transmission %}
-        <h3>Привод</h3> {{ car.transmission }}
-    {% endif %}
-    {% if car.color %}
-        <h3>Цвет</h3> {{ car.color }}
-    {% endif %}
-    {% if car.color %}
-        <h3>Описание</h3>
-        {{ car.description }}
-    {% endif %}
 {% endblock %}

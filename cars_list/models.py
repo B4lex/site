@@ -9,11 +9,14 @@ class Car(models.Model):
     uah_price = models.IntegerField()
     description = models.TextField(max_length=500, blank=True, null=True)
     image_ref = models.URLField()
-    location = models.CharField(max_length=10)
+    location = models.CharField(max_length=10, null=True)
     type = models.TextField(null=True)
-    mileage = models.DecimalField(decimal_places=10, max_digits=10, null=True)
+    mileage = models.DecimalField(decimal_places=5, max_digits=10, null=True)
     engine = models.TextField(null=True)
     gearbox = models.TextField(null=True)
     transmission = models.TextField(null=True)
     color = models.CharField(max_length=10, null=True)
+    color_val = models.CharField(max_length=10, null=True)
 
+    def __str__(self):
+        return self.title
