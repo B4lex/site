@@ -1,12 +1,17 @@
+from decimal import Decimal
+import re
+
 import requests
 from bs4 import BeautifulSoup
-from decimal import Decimal
 
-import re
+HEADERS = {
+    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
+                  ' Chrome/83.0.4103.97 Safari/537.36'
+}
 
 
 def get_car_info(link):
-    html_raw = requests.get(link)
+    html_raw = requests.get(link, headers=HEADERS)
     html_bs = BeautifulSoup(html_raw.content, 'html.parser')
     stats = get_car_stats(html_bs)
     image = get_image(html_bs)
