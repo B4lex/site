@@ -1,6 +1,7 @@
 {% extends 'cars_list/cars_base.html' %}
 
 {% block content %}
+    <h1 class="up-ref"><a href="{% url 'cars_update' %}">Update</a></h1>
     {% for car in cars %}
         <div class="container car">
             <h3><a href="{% url 'car_detail' pk=car.pk %}">{{ car.title }}</a></h3>
