@@ -1,6 +1,8 @@
 from decimal import Decimal
 import re
 
+from django.utils import timezone
+
 import requests
 from bs4 import BeautifulSoup
 

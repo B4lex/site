@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cars_list'
+    'cars_list',
+    'colorfield',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
+
+DATETIME_FORMAT = 'N j, Y, H'
 
 USE_I18N = True
 
@@ -125,3 +128,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Celery
 CELERY_BROKER_URL = 'redis://localhost:6379/'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/'

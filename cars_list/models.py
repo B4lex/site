@@ -1,4 +1,5 @@
 from django.db import models
+from colorfield.fields import ColorField
 
 
 class Car(models.Model):
@@ -16,7 +17,8 @@ class Car(models.Model):
     gearbox = models.TextField(null=True)
     transmission = models.TextField(null=True)
     color = models.CharField(max_length=10, null=True)
-    color_val = models.CharField(max_length=10, null=True)
+    color_val = ColorField(null=True)
+    update_date = models.DateTimeField(auto_now=True)
 
     def update(self, source):
         for key, value in source.items():

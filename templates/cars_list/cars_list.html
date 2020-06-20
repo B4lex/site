@@ -2,9 +2,11 @@
 
 {% block content %}
     <h1 class="up-ref"><a href="{% url 'cars_update' %}">Update</a></h1>
+    <h3>Min {{ min_price }} Max {{ max_price }}</h3>
     {% for car in cars %}
         <div class="container car">
             <h3><a href="{% url 'car_detail' pk=car.pk %}">{{ car.title }}</a></h3>
+            {{ car.update_date }}
             <img src="{{ car.image_ref }}" alt="{{ car.title }}">
             <h4>{{ car.usd_price }} $</h4>
             <h4>{{ car.uah_price }} грн.</h4>

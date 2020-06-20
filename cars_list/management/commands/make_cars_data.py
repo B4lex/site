@@ -1,8 +1,4 @@
-from cars_list.models import Car
 from django.core.management.base import BaseCommand
-
-from bs4 import BeautifulSoup
-import requests
 
 from cars_list.parser import run
 
